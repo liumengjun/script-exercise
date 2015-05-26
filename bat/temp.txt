@@ -1,0 +1,11 @@
+a.text
+a.txt
+finddir.bat
+funny.bat
+read_file.bat
+temp.text
+temp.txt
+test.bat
+test_dir.bat
+test_dir2.bat
+trav_files.bat

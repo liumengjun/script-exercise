@@ -1,0 +1,6 @@
+
+HOME=C:\Documents and Settings\21714900R2960
+
+HOMEPATH=\Documents and Settings\21714900R2960
+
+USERPROFILE=C:\Documents and Settings\21714900R2960
