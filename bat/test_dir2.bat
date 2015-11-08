@@ -15,16 +15,17 @@ echo %tmp%
 echo %~dp0
 echo %~nx0
 echo >nul
-echo æ­£åœ¨é‹è¡Œçš„é€™å€‹æ¯”è™•ç†æ–‡ä»¶:
-echo å®Œå…¨è·¯å¾‘: %0
-echo å»æ‰å¼•è™Ÿ: %~0
-echo æ‰€åœ¨åˆ†å€: %~d0
-echo æ‰€è™•è·¯å¾‘: %~p0
-echo æ–‡ä»¶å: %~n0
-echo æ“´å±•å: %~x0
-echo æ–‡ä»¶å±¬æ€§: %~a0
-echo ä¿®æ”¹æ™‚é–“: %~t0
-echo æ–‡ä»¶å¤§å°: %~z0
+echo ÕıÔÚß\ĞĞµÄß@‚€±ÈÌÀíÎÄ¼ş:
+echo ÍêÈ«Â·½%%0: %0
+echo È¥µôÒıÌ–%%~0: %~0
+echo ËùÔÚ·Ö…^%%~d0: %~d0
+echo ËùÌÂ·½%%~p0: %~p0
+echo ËùÌÂ·½%%~dp0: %~dp0
+echo ÎÄ¼şÃû%%~n0: %~n0
+echo ”UÕ¹Ãû%%~x0: %~x0
+echo ÎÄ¼şŒÙĞÔ%%~a0: %~a0
+echo ĞŞ¸Ä•rég%%~t0: %~t0
+echo ÎÄ¼ş´óĞ¡%%~z0: %~z0
 pause
 
 set date_str=%date%
@@ -37,7 +38,7 @@ pause
 set work_path=E:\temp
 cd /d %work_path%
 for /f "skip=5 tokens=3* delims= " %%a in ('dir') do (
-	if not "%%a"=="<DIR>" if not "%%b"=="å­—èŠ‚" if not "%%b"=="å¯ç”¨å­—èŠ‚" echo %%b
+	if not "%%a"=="<DIR>" if not "%%b"=="×Ö½Ú" if not "%%b"=="¿ÉÓÃ×Ö½Ú" echo %%b
 )
 pause
 
@@ -46,7 +47,7 @@ set work_path=E:\temp
 cd /d %work_path%
 dir>filelist.temp.txt
 for /f "skip=5 tokens=3* delims= " %%a in (filelist.temp.txt) do (
-	if not "%%a"=="<DIR>" if not "%%b"=="å­—èŠ‚" if not "%%b"=="å¯ç”¨å­—èŠ‚" echo %%b
+	if not "%%a"=="<DIR>" if not "%%b"=="×Ö½Ú" if not "%%b"=="¿ÉÓÃ×Ö½Ú" echo %%b
 )
 del filelist.temp.txt
 pause
