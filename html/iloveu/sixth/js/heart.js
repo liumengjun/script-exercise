@@ -222,7 +222,7 @@
 
         //---------------------------------------------------------------
         //Draw My Picture
-        var r = 18;
+        var r = 17;
         var flag = 0;
         var time, temp = 800;
         var radian = Math.PI; //弧度

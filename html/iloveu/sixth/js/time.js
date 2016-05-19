@@ -4,10 +4,10 @@ function showTime() {
     var vHeight = document.body.clientHeight;
     //获取DIV对象
     var tObj = document.getElementById("time");
-    if (vWidth < 650) {
+    // if (vWidth < 650) {
         tObj.style.left = "30px";
         tObj.style.top = "750px";
-    }
+    // }
     var currentDate = new Date();
     var startDate = new Date(2013, 03, 17);
     var date3 = currentDate - startDate;

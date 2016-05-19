@@ -14,10 +14,10 @@ function move() {
     var left = 630;
     //获得移动div，在整个活动区域的Y坐标
     var top = 220;
-    if (vWidth < 650) {
+    // if (vWidth < 650) {
         left = 30;
         top = 630;
-    }
+    // }
     //使用定时器移动DIV
     var timer = setInterval(function() { //移动的函数
         if (num == 105) { //移动105次

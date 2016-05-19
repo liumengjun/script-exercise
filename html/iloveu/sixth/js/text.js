@@ -33,6 +33,7 @@ function writeContent(init) {
         setTimeout('writeContent(false)', 140);
     } else {
         blinkSpan();
+        document.body.style.backgroundImage = 'url(images/bg.jpg)';
     }
 }
 
