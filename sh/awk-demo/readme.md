@@ -1,0 +1,1 @@
+[三十分钟学会 AWK(from OSChina)](http://mp.weixin.qq.com/s?__biz=MjM5NzM0MjcyMQ==&mid=2650068226&idx=2&sn=ac6bb57073b388fc72ca94dcda30fc54&chksm=bedb0e6c89ac877a5671a9020b99a81eec8a6c5bc13c828f45984d2ee082552f63120d2f6a68&scene=0#rd)
