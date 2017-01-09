@@ -12,6 +12,7 @@
 [**generate_fake_id**](https://github.com/liumengjun/script-exercise/blob/master/py/generate_fake_id.py): 生成伪身份证号(开发测试用)    
 [**random_string**](https://github.com/liumengjun/script-exercise/blob/master/py/random_string.py): 生成随机字符串    
 [**waste_battery_loop**](https://github.com/liumengjun/script-exercise/blob/master/py/waste_battery_loop.py): 一个浪费电的loop脚本(😉)    
+[**three_impls_fibonacci**](https://github.com/liumengjun/script-exercise/blob/master/py/three_impls_fibonacci.py): 3种斐波那契数(Fibonacci Num)实现：线性递归，尾递归，循环    
 [more py demos>>](https://github.com/liumengjun/script-exercise/tree/master/py)    
 
 
