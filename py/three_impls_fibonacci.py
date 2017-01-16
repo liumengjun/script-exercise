@@ -19,30 +19,27 @@ def fibonacci2(n: int):
     def _inner(n: int, a: int, b: int):
         if (n <= 0):
             return a
-        elif (n == 1):
-            return b
         else:
-            return _inner(n - 2, a + b, b + a + b)
+            return _inner(n - 1, b, a + b)
 
     return _inner(n, 0, 1)
 
 
 def fibonacci3(n: int):
     '''common-loop'''
-    a, b, i, even = 0, 1, 1, False
+    a, b, i = 0, 1, 1
     while i <= n:
-        if even:
-            a += b
-        else:
-            b += a
-        even, i = not even, i + 1
-    return b if even else a
+        _a = a
+        a = b
+        b = _a + b
+        i += 1
+    return a
 
 
 if __name__ == "__main__":
     import time
 
-    the_range = range(1, 31)
+    the_range = range(0, 32)
     fibs = []
     s = time.time()
     for i in the_range:
