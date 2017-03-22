@@ -1,4 +1,4 @@
-# 一些脚本语言の学习练习
+# 一些脚本语言の学习练习 <sup>[`@github`](https://github.com/liumengjun/script-exercise)</sup>
 
 
 ## javascript
@@ -13,6 +13,7 @@
 [**random_string**](https://github.com/liumengjun/script-exercise/blob/master/py/random_string.py): 生成随机字符串    
 [**waste_battery_loop**](https://github.com/liumengjun/script-exercise/blob/master/py/waste_battery_loop.py): 一个浪费电的loop脚本(😉)    
 [**three_impls_fibonacci**](https://github.com/liumengjun/script-exercise/blob/master/py/three_impls_fibonacci.py): 3种斐波那契数(Fibonacci Num)实现：线性递归，尾递归，循环    
+[**random_red_package**](https://github.com/liumengjun/script-exercise/blob/master/py/random_red_package.py): (微信）发多个随机红包算法    
 [more py demos>>](https://github.com/liumengjun/script-exercise/tree/master/py)    
 
 
