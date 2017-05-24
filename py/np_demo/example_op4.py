@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import newaxis
 
 a = np.floor(10*np.random.random((3,4)))
 # array([[ 2.,  8.,  0.,  6.],
