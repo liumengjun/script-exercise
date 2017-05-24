@@ -9,7 +9,7 @@
 import numpy
 import matplotlib.pyplot
 
-h = 1.0  # s
+h = 5.0  # s
 EARTH_MASS = 5.97e24  # kg
 GRAVITATIONAL_CONSTANT = 6.67e-11  # N * m^2 / kg^2
 MOON_DISTANCE = 384e6  # m
@@ -27,7 +27,7 @@ def acceleration(spaceship_position):
 
 def ship_trajectory():
     # num_steps = 13000  # about 3.6 hours
-    num_steps = 60 * 60 * 24 * 10
+    num_steps = 60 * 60 * 24 * 2
     x = numpy.zeros([num_steps + 1, 2])  # m
     v = numpy.zeros([num_steps + 1, 2])  # m / s
 
@@ -61,10 +61,11 @@ x, v = ship_trajectory()
 
 
 def plot_me():
-    matplotlib.pyplot.plot(x[:, 0], x[:, 1])  # ship trajectory
+    matplotlib.pyplot.plot(x[:, 0], x[:, 1], ':')  # ship trajectory
     matplotlib.pyplot.plot(x[:500, 0], x[:500, 1])  # first few minutes of ship
-    matplotlib.pyplot.plot(mo[:, 0], mo[:, 1])  # moon orbit
-    matplotlib.pyplot.scatter(0, 0)
+    matplotlib.pyplot.plot(mo[:, 0], mo[:, 1], '--')  # moon orbit
+    matplotlib.pyplot.scatter(0, 0)  # earth
+    matplotlib.pyplot.scatter(*mo[17], s=10)  # moon
     matplotlib.pyplot.axis('equal')
     axes = matplotlib.pyplot.gca()
     axes.set_xlabel('Longitudinal position in m')
