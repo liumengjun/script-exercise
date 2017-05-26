@@ -1,6 +1,9 @@
 '''
-speed: common-loop > tail-recursive >>> linear-recursive
+speed: cached_fibonacci > common-loop > tail-recursive >>> linear-recursive
+NOTE: cached linear-recursive method is faster than common loop impl.
 '''
+
+from functools import lru_cache
 
 
 def fibonacci(n: int):
@@ -11,6 +14,17 @@ def fibonacci(n: int):
         return 1
     else:
         return fibonacci(n - 2) + fibonacci(n - 1)
+
+
+@lru_cache(maxsize=None)
+def cached_fibonacci(n: int):
+    """cached linear-recursive"""
+    if (n <= 0):
+        return 0
+    elif (n == 1):
+        return 1
+    else:
+        return cached_fibonacci(n - 2) + cached_fibonacci(n - 1)
 
 
 def fibonacci2(n: int):
@@ -40,6 +54,16 @@ if __name__ == "__main__":
     import time
 
     the_range = range(0, 32)
+
+    fibs = []
+    s = time.time()
+    for i in the_range:
+        fibs.append(cached_fibonacci(i))
+    t = time.time() - s
+    print(fibs)
+    print(cached_fibonacci.__doc__)
+    print(t)
+
     fibs = []
     s = time.time()
     for i in the_range:
