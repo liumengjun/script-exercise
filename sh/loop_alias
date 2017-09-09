@@ -1,0 +1,8 @@
+#!/bin/bash
+# loop_alias.sh: add 127.0.0.* to loopback net interface
+for ((i=2;i<256;i++))
+do
+    sudo -S ifconfig lo0 alias 127.0.0.$i up
+done
+# enable port forward (re-enable is need if reset network)
+sudo -S pfctl -ef /etc/pf.conf

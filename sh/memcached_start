@@ -1,0 +1,2 @@
+#!/bin/sh
+memcached -d -m 64 -p 11211 -c 1024 –P /usr/local/var/run/memcached.pid
