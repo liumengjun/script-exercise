@@ -1,0 +1,3 @@
+[submodule "groovy"]
+	path = groovy
+	url = git@gitee.com:liumengjun/hello-groovy.git
