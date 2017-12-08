@@ -1,3 +1,6 @@
 [submodule "groovy"]
 	path = groovy
 	url = git@gitee.com:liumengjun/hello-groovy.git
+[submodule "scala"]
+	path = scala
+	url = git@github.com:liumengjun/hello-scala.git
