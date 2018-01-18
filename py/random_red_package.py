@@ -1,6 +1,8 @@
 import random
 
-
+'''
+# 微信或支付宝，随机红包（拼手气红包）算法
+'''
 def random_red_package(total: float, num: int):
     if total * 100 < num:
         raise Exception("total is too small")
