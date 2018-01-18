@@ -48,19 +48,20 @@ def calc_acpi_details(total_pri, months, month_rate):
     details = []
     remaining = total_pri
     for i in range(months):
-        interest = _fix_float(remaining * month_rate)
-        pri = _fix_float(per_month_amount - interest)
-        remaining -= pri
-        # 防止显示-0.0或负数
-        remaining_shown = _fix_float(remaining)
-        if remaining_shown <= 0:
-            remaining_shown = 0.0
+        if i == months - 1:
+            pri = remaining
+            interest = _fix_float(per_month_amount - pri)
+            remaining = 0.0
+        else:
+            interest = _fix_float(remaining * month_rate)
+            pri = _fix_float(per_month_amount - interest)
+            remaining = _fix_float(remaining - pri)
         details.append({
             'seq': (i + 1),
             'gross': _fix_float(per_month_amount),
             'principal': pri,
             'interest': interest,
-            'remaining': remaining_shown,
+            'remaining': remaining,
         })
     return details
 
@@ -80,17 +81,17 @@ def calc_ac_details(total_pri, months, month_rate):
     remaining = total_pri
     for i in range(months):
         interest = _fix_float(remaining * month_rate)
-        remaining -= pri_per_month
-        remaining_shown = _fix_float(remaining)
-        # 防止显示-0.0或负数
-        if remaining_shown <= 0:
-            remaining_shown = 0.0
+        if i == months - 1:
+            pri_per_month = remaining
+            remaining = 0.0
+        else:
+            remaining = _fix_float(remaining - pri_per_month)
         details.append({
             'seq': (i + 1),
             'gross': _fix_float(pri_per_month + interest),
             'principal': pri_per_month,
             'interest': interest,
-            'remaining': remaining_shown,
+            'remaining': remaining,
         })
     return details
 
