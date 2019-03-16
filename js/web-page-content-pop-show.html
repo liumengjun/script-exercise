@@ -1,0 +1,91 @@
+<style>
+  .popWindow {
+    background-color:#111;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0.97;
+    z-index: 1;
+    position: absolute;
+  }
+  .popContent {
+    background-color:#000;
+    width: 92%;
+    height: 92%;
+    top: 4%;
+    right: 4%;
+    z-index: 4;
+    position: absolute;
+    text-align:center;
+    font-size: 96px;
+  }
+  .popContent img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .popWindowClose {
+    background-color:#000;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    top: 100px;
+    right: 100px;
+    color:#fff;
+    z-index: 9;
+    position: absolute;
+    text-align:center;
+  }
+</style>
+<div id="popWindow" class="popWindow" style="display: none;">
+  <div id="popContent" class="popContent">
+    <table style="width: 100%;height: 100%;"><tr><td id="popContentInner"></td></tr></table>
+  </div>
+  <div id="popWindowClose" class="popWindowClose" onclick="closePopDiv()" style="display: none;cursor:pointer;text-decoration: none;">
+    ╳
+  </div>
+</div>
+
+<script>
+  function showPopDiv(content) {
+    document.getElementById('popWindow').style.display = 'block';
+    document.getElementById('popWindowClose').style.display = 'block';
+    document.getElementById('popContent').style.display = 'block';
+    document.getElementById('popContentInner').innerHTML = content;
+  }
+  function closePopDiv() {
+    document.getElementById('popWindow').style.display = 'none';
+    document.getElementById('popWindowClose').style.display = 'none';
+    document.getElementById('popContent').style.display = 'none';
+  }
+  window.addEventListener('click', function (evt) {
+    if (evt.detail === 3) {
+      console.log('triple click!');
+      var selObj = window.getSelection();
+      if (!selObj.anchorNode) {
+        return;
+      }
+      var childNodes = selObj.anchorNode.childNodes;
+      var img = null;
+      for (var ele of childNodes) {
+        if (ele.tagName == 'IMG') {
+          img=ele;
+          break;
+        }
+      }
+      if (img) {
+        console.log(img.outerHTML);
+        showPopDiv(img.outerHTML);
+        return;
+      }
+      var text = selObj.toString().trim();
+      if (text) {
+        console.log(text);
+        showPopDiv(text);
+        return;
+      }
+    }
+  });
+</script>
