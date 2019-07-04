@@ -1,6 +1,6 @@
 """
 延时执行任务demo：
-有一个任务队列，不定时向任务队列添加任务。添加任务后安排5秒后执行任务，如果5秒内又添加了任务，也一并执行；不向任务队列添加任务，不安排。
+有一个任务队列，不定时向任务队列添加任务。添加任务后安排稍后执行，如果期间又添加了任务，也一并执行；不向任务队列添加任务，不安排。
 """
 from collections import deque
 import time
@@ -42,18 +42,26 @@ class TasksTimerRunner(object):
     def is_closing(self):
         return self._closing
 
-    def add_task(self, num):
+    def add_task(self, task, delay=None):
         """
-        添加任务，并安排一个timer做job，如果已经安排了，就不在安排
+        添加任务，并安排一个timer做job
         """
         if self._closing:
             raise Exception("runner is closing")
-        self._task_queue.append(num)
+        self._task_queue.append(task)
+        self._schedule_timer(delay)
+
+    def _schedule_timer(self, delay=None):
+        """
+        安排一个timer做job，如果已经安排了，就不在安排
+        """
         if self._scheduled:
             return
         self._scheduled = True
-        # 5秒后运行job
-        threading.Timer(self._delay, self._job).start()
+        # delay 秒后运行job
+        if delay is None:
+            delay = self._delay
+        threading.Timer(delay, self._job).start()
         # threading.Timer(6, _job).start()
 
     def _job(self):
@@ -63,11 +71,14 @@ class TasksTimerRunner(object):
         self.run_now()
         self._doing = False
         self._scheduled = False
+        if self._task_queue:
+            # 处理遗留任务
+            self._schedule_timer()
 
     def run_now(self):
         """
         执行tasks。一般在threading.Timer中调用，否则表示立即执行任务
-        这里保证每一个任务都会被执行，而且仅执行一遍。即使安排了多个timer
+        这里保证每一个任务仅执行一遍。即使安排了多个timer
         """
         _print2('start job'.center(80, '-'))
         # copy() clear()两次操作不能保证原子性，可能导致task丢失。如果正在doing就不要添加task也不好控制。
@@ -81,10 +92,12 @@ class TasksTimerRunner(object):
         except:
             pass
         if tasks:
+            _print2("do task:", tasks)
             if self._tasks_handler:
-                self._tasks_handler(tasks)
-            else:
-                _print2("do task:", tasks)
+                try:
+                    self._tasks_handler(tasks)
+                except Exception as err:
+                    _print2("Failed to call tasks_handler, error: ", err)
         else:
             _print2("Nothing to do")
         _print2('end job'.center(80, '-'))
@@ -105,9 +118,16 @@ class TasksTimerRunner(object):
             signal.signal(signal.SIGBREAK, self._shutdown_handler)
 
 
-def main_run(delay):
-    runner = TasksTimerRunner(tasks_handler=print)
-    for i in range(10000):
+def main_demo(delay):
+    def worker(tasks):
+        if not tasks:
+            print('aha, no job')
+        if random.random() < 0.2:
+            raise Exception('Not stable, random exception')
+        print(sum(tasks))
+
+    runner = TasksTimerRunner(tasks_handler=worker)
+    for i in range(20):
         if runner.is_closing():
             return
         runner.add_task(i)
@@ -116,4 +136,4 @@ def main_run(delay):
 
 
 if __name__ == '__main__':
-    main_run(7.5)
+    main_demo(2.5)
