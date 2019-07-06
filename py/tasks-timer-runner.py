@@ -118,6 +118,25 @@ class TasksTimerRunner(object):
             signal.signal(signal.SIGBREAK, self._shutdown_handler)
 
 
+class TasksIntervalRunner(TasksTimerRunner):
+    """
+    固定间隔执行任务。
+    通过参数delay指定间隔时长。如果首次添加任务（或者上次执行后超过间隔时长）立即执行，否则稍后执行
+    """
+    _last_run_time = None
+
+    def add_task(self, task, delay=None):
+        if self._last_run_time is None or self._last_run_time + self._delay < time.time():
+            return super().add_task(task, delay=0)
+        new_delay = self._last_run_time + self._delay - time.time()
+        new_delay = delay is None and new_delay or max(new_delay, delay)
+        super().add_task(task, delay=new_delay)
+
+    def run_now(self):
+        super().run_now()
+        self._last_run_time = time.time()
+
+
 def main_demo(delay):
     def worker(tasks):
         if not tasks:
@@ -126,14 +145,16 @@ def main_demo(delay):
             raise Exception('Not stable, random exception')
         print(sum(tasks))
 
-    runner = TasksTimerRunner(tasks_handler=worker)
+    # runner = TasksTimerRunner(tasks_handler=worker)
+    runner = TasksIntervalRunner(tasks_handler=worker)
     for i in range(20):
         if runner.is_closing():
             return
+        _print2('add task', i)
         runner.add_task(i)
-        _print2('task', i, 'was added')
         time.sleep(random.random() * delay)
 
 
 if __name__ == '__main__':
-    main_demo(2.5)
+    # main_demo(2.5)
+    main_demo(10)
