@@ -63,13 +63,13 @@
         }
     }
 
-    // `span > em` event, 使用外层的<span>, <em>会用'onclick'导致 addEventListener 失效
+    // 监听`span > em` click event, 加在外层的<span>上(冒泡时处理), <em>使用'onclick'会导致 addEventListener 失效
     var allBtnList = document.querySelectorAll('.playlist > div > .jj > span');
     for (let span of allBtnList) {
         span.addEventListener('click', markSelectedVideo);
     }
 
-    // reverse
+    // reverse video list
     var rEmBtnList = document.querySelectorAll('.playlist > div > .jj > span[id$=_s1] > em');
     for (let em of rEmBtnList) {
         em.click();
