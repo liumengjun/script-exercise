@@ -4,7 +4,7 @@ import decimal
 decimal.getcontext().prec = 128
 
 """
-计算自然指数(e)小数点后128位数值。
+计算自然常数(e)小数点后128位数值。
 math.e 的数值只保留到小数点后15位，对于双精度浮点数足够了。
 """
 
