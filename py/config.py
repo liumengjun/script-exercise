@@ -19,7 +19,7 @@ def _detect_work_dir():
     return os.getcwd()
 
 
-def log_config(your_file: str, with_console=True):
+def log_config(your_file: str, with_console=True, log_level=logging.INFO):
     work_dir = _detect_work_dir()
     if your_file:
         your_file = os.path.basename(your_file)
@@ -34,7 +34,7 @@ def log_config(your_file: str, with_console=True):
     print('log_file: %s' % log_filepath)
 
     _fmt = '%(asctime)s %(filename)s [%(levelname)s] %(message)s'
-    logging.basicConfig(level=logging.INFO, filename=log_filepath, format=_fmt)
+    logging.basicConfig(level=log_level, filename=log_filepath, format=_fmt)
     # above only file, below add console
     if with_console:
         console_handler = logging.StreamHandler(sys.stdout)
