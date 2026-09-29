@@ -1,5 +1,6 @@
 """
 受到"漫士】二进制里隐藏的分形：到底什么是分数维度？"视频启发, 写了这个 python 程序
+把数字以2进制表示, 从0到N, bit_count是偶数前进奇数转向绘制图形...
 视频链接: https://www.bilibili.com/video/BV1tuab6rEAY/
 
 base(进制) = 2
@@ -15,12 +16,34 @@ from turtle import *
 
 
 # 调整以下参数, 观察绘制图形变化。 (可能需要调整初始位置和方向以便绘制不出界, 见`_init()`函数)
-one_unit = 10  # 前进一步的像素数
 base = 2  # 数进制, 二进制
-rotateM = 6  # 圆周几等份
+rotateM = 6  # 圆周几等分, 转向时只转一份
 rotate = 360/rotateM
+one_unit = 10  # 前进一步的像素数
 N = 1000  # 迭代多少步
-version = "1.2"  # >=3进制时的实现版本
+version = "2.2"  # >=3进制时的实现版本
+
+
+def _parse_args():
+    import sys
+    args_cnt = len(sys.argv)
+    print(args_cnt, sys.argv)
+    if args_cnt > 1:
+        global base
+        base = int(sys.argv[1])
+    if args_cnt > 2:
+        global rotateM, rotate
+        rotateM = int(sys.argv[2])
+        rotate = 360/rotateM
+    if args_cnt > 3:
+        global one_unit
+        one_unit = int(sys.argv[3])
+    if args_cnt > 4:
+        global N
+        N = int(sys.argv[4])
+    if args_cnt > 5:
+        global version
+        version = sys.argv[5]
 
 
 def dec_to_base(n, base):
@@ -79,12 +102,14 @@ def _init():
     # 初始位置和方向
     penup()
     # 初始位置, 默认从画布中央开始画
-    # teleport(sw/2-50, -sh/2+100)  # 左下角开始
+    # teleport(sw/2-100, -sh/2+100)  # 左下角开始
+    # teleport(sw/2-50, 100)  # 右上部分开始
     pendown()
     # right(rotate)  # 初始方向
 
 
 def main():
+    _parse_args()
     _init()
 
     dot(3, 'green')  # 开始画个绿点
@@ -120,8 +145,9 @@ def main():
 
 def _save_file():
     """保存为 postscript 文件"""
-    filename = 'var/base_%d-rotateM_%d-unit_%dpx-count_%d-v%s.ps' % (
-        base, rotateM, one_unit, N, version)
+    version_str = '-v'+version if base != 2 else ''
+    filename = 'var/base_%d-rotateM_%d-unit_%dpx-count_%d%s.ps' % (
+        base, rotateM, one_unit, N, version_str)
     print(filename)
     save(filename, overwrite=True)
 
