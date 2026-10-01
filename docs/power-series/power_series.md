@@ -63,9 +63,9 @@ $$
 ### 参考
 
 > 拾人牙慧, 稍加整理。
-> 想来是计算一下`自然常数(e)`高精度数值(比如小数点后128位), 见脚本[calc_e.py](../../py/power_series/calc_e.py)。
+> 想来是计算一下`自然常数(e)`高精度数值(比如小数点后128位), 见脚本[calc_e.py](../../py/math_demos/power_series/calc_e.py)。
 > 然后就收集了一些幂级数的知识点。毕竟计算机计算指数对数三角函数等是依靠此数学理论的。
-> 另外之前还有个计算`圆周率(π)`的脚本, 在[calc_pi.py](../../py/calc_pi/calc_pi.py)。
+> 另外之前还有个计算`圆周率(π)`的脚本, 在[calc_pi.py](../../py/math_demos/calc_pi/calc_pi.py)。
 
 - [`教案`函数的幂级数展开及其应用](https://pdf.hanspub.org/pm2024148_11252537.pdf)
 - [`教案`幂级数与Taylor展开式](http://staff.ustc.edu.cn/~rui/ppt/math-analysis/chap7_3.html)
