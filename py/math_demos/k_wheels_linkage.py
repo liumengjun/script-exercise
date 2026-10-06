@@ -48,6 +48,26 @@ def _save_file(screen, k_wheels, one_unit, rounds=None, ends=None):
     screen.save(filename, overwrite=True)
 
 
+def parse_filename_to_wheels(filename: str):
+    # print(filename)
+    p_1 = filename.find('[')
+    p_2 = filename.find(']', p_1+1)
+    if p_1 < 0 or p_2 < 0:
+        return None
+    wheels_str = filename[p_1+1:p_2]
+    # print(wheels_str)
+    wheels_str_arr = wheels_str.split(',')
+    wheels = []
+    for wheel_str in wheels_str_arr:
+        p_arr = wheel_str.split('_')
+        r_str = p_arr[0]
+        s_str = p_arr[1]
+        r = float(r_str[1:])
+        s = float(s_str[1:])
+        wheels.append(Wheel(r, s))
+    return wheels
+
+
 def _calc_max_rounds(k_wheels):
     """
     根据 w.s Wheel 的 speed 判断最大圈数
@@ -264,6 +284,19 @@ def gen_k_wheels(r_start: int, r_end: int, s_start: int, s_end: int, arr: list[W
         yield ele
 
 
+def _skip_except0_s_same(wheels):
+    s_same = True
+    a = 0
+    for w in wheels:
+        if w.s == 0:
+            continue
+        elif a == 0:
+            a = w.s
+            continue
+        s_same = s_same and (w.s == a)
+    return s_same
+
+
 def explore_k_wheels_kinds(k_wheels, r, s, skip_count=0):
     # 由 gen_k_wheels 生成多种组合, 然后绘制图形
     k = len(k_wheels)
@@ -283,7 +316,12 @@ def explore_k_wheels_kinds(k_wheels, r, s, skip_count=0):
     # 绘制
     for i, wheels in enumerate(gen_k_wheels(r[0], r[1], s[0], s[1], k_wheels), 1):
         skip = i <= skip_count
-        print('\n%d/%d: %s, skip: %s' % (i, total_count, wheels, skip))
+        reason = skip and 'count-out' or ''
+        if not skip:
+            skip = _skip_except0_s_same(wheels)
+            reason = skip and 'except0-s_same' or ''
+        print('\n%d/%d: %s, skip: %s (%s)' %
+              (i, total_count, wheels, skip, reason))
         if skip:
             continue
         paint_k_wheels(k_wheels, '-No.'+str(i))
@@ -308,6 +346,6 @@ if __name__ == "__main__":
     # _paint_k_wheels_1ce(main_t, screen, k_wheels, 0.785, True)
     # paint_k_wheels(k_wheels)
 
-    explore_k_wheels_kinds(k_wheels, [1, 3], [-5, 5], 70)
+    explore_k_wheels_kinds(k_wheels, [1, 3], [-5, 5], 16612)
 
     done()
