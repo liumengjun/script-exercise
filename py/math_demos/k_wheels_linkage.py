@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import math
+import random
 import tkinter as TK
 from turtle import Turtle, done
 
@@ -217,7 +218,7 @@ def paint_k_wheels(k_wheels, append_info=None):
     sw, sh = screen.window_width(), screen.window_height()
     locus_t.teleport(-sw/2+20, -sh/2+20)  # 左下角
     locus_t.write(str(k_wheels)+str(append_info or ''),
-                  font=("Arial", 16, "normal"))
+                  font=("Arial", 14, "normal"))
 
     # 画第一个圆(不动), 从圆的最低点开始画的
     locus_t.teleport(0, 0)
@@ -327,25 +328,46 @@ def explore_k_wheels_kinds(k_wheels, r, s, skip_count=0):
         paint_k_wheels(k_wheels, '-No.'+str(i))
 
 
+def random_k_wheels(i):
+    global _ONE_UNIT
+    _ONE_UNIT = 10
+    k = random.randint(2, 20)
+    k_wheels = []
+    for _ in range(k):
+        r = random.randint(1, 3)
+        s = random.randint(-5, 5)
+        k_wheels.append(Wheel(r, s))
+    skip = _skip_except0_s_same(k_wheels)
+    reason = skip and 'except0-s_same' or ''
+    print(i, '\n', len(k_wheels), k_wheels)
+    if skip:
+        print(skip, reason)
+        return
+    paint_k_wheels(k_wheels)
+
+
 if __name__ == "__main__":
-    k_wheels = [
-        # Wheel(r=2.3, s=1),
-        # Wheel(r=1, s=-2.5),
-        # Wheel(r=3, s=3),
-        # Wheel(r=3, s=-1),
-        # Wheel(r=2, s=2),
-        # Wheel(r=2, s=-1),
-        # Wheel(r=1, s=-3),
-        Wheel(r=1, s=1),
-        Wheel(r=1, s=-3),
-        Wheel(r=2, s=4),
-    ]
-    print(len(k_wheels), k_wheels, '\n')
+    # k_wheels = [
+    #     # Wheel(r=2.3, s=1),
+    #     # Wheel(r=1, s=-2.5),
+    #     # Wheel(r=3, s=3),
+    #     # Wheel(r=3, s=-1),
+    #     # Wheel(r=2, s=2),
+    #     # Wheel(r=2, s=-1),
+    #     # Wheel(r=1, s=-3),
+    #     Wheel(r=1, s=1),
+    #     Wheel(r=1, s=-3),
+    #     Wheel(r=2, s=4),
+    # ]
+    # print(len(k_wheels), k_wheels, '\n')
 
     # main_t, locus_t, screen = _init_turtle(k_wheels)
     # _paint_k_wheels_1ce(main_t, screen, k_wheels, 0.785, True)
     # paint_k_wheels(k_wheels)
 
-    explore_k_wheels_kinds(k_wheels, [1, 3], [-5, 5], 16612)
+    # explore_k_wheels_kinds(k_wheels, [1, 3], [-5, 5], 16612)
+
+    for i in range(20):
+        random_k_wheels(i)
 
     done()
